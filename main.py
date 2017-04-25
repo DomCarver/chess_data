@@ -75,7 +75,7 @@ def extract_dir(directory, output_filename):
     df.to_csv(output_filename)
 
 
-def extract_all_variables(outer_directory):
+def extract_all_dirs(outer_directory):
     names = []
     for name in os.listdir(outer_directory):
         if name.lower().startswith('chess_'):
