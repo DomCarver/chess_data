@@ -64,6 +64,7 @@ class ChessDataset:
 
 
 def extract_dir(directory, output_filename):
+    """Get all the files in a single directory and send them to a single output file"""
     print 'extracting', directory, 'to', output_filename
     df = pd.DataFrame()
     for name in os.listdir(directory):
@@ -76,6 +77,7 @@ def extract_dir(directory, output_filename):
 
 
 def extract_all_dirs(outer_directory):
+    """Get all the netCDF files in each directory starting with CHESS_ and send them to files in the current location"""
     names = []
     for name in os.listdir(outer_directory):
         if name.lower().startswith('chess_'):
@@ -86,6 +88,7 @@ def extract_all_dirs(outer_directory):
 
 
 def extract_file(filename, output_filename):
+    """Converts a single netCDF file with any variable in the list 'tas', 'precip', 'pet', 'dtr'"""
     chess_data = ChessDataset(filename)
     chess_data.extract()
     chess_data.save_to_csv(output_filename)
