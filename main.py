@@ -40,8 +40,8 @@ class ChessDataset:
         yui = np.argmin(np.abs(y - ybounds[1]))
 
         # get the list of values of y and x within the boundaries
-        y_select = y[yli:yui]
-        x_select = x[xli:xui]
+        y_select = y[yli:yui + 1]
+        x_select = x[xli:xui + 1]
 
         grid = data.variables[variable_name][:, yli:yui, xli:xui] # get the 3D array within the boundaries for all time
         df = pd.DataFrame() # create a new dataframe to put the extracted series into
