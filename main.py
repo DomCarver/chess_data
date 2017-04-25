@@ -10,7 +10,7 @@ class ChessDataset:
         self.df = None
 
 
-    def extract(self, xbounds=(308000 , 323000), ybounds=(510000, 518000)):
+    def extract(self, xbounds=(308000 , 324000), ybounds=(510000, 519000)):
         """this defines a function called extract_rainfall with the argument dataset_path which
         needs to be a string corresponding to the location of you input netCDF file"""
 
@@ -33,15 +33,15 @@ class ChessDataset:
 
         # get the minimum difference between the x values in the dataset and the boundry
         xli = np.argmin(np.abs(x - xbounds[0]))
-        xui = np.argmin(np.abs(x - xbounds[1]))
+        xui = np.argmin(np.abs(x - xbounds[1])) + 1
 
         # same for y
         yli = np.argmin(np.abs(y - ybounds[0]))
-        yui = np.argmin(np.abs(y - ybounds[1]))
+        yui = np.argmin(np.abs(y - ybounds[1])) + 1
 
         # get the list of values of y and x within the boundaries
-        y_select = y[yli:yui + 1]
-        x_select = x[xli:xui + 1]
+        y_select = y[yli:yui]
+        x_select = x[xli:xui]
 
         grid = data.variables[variable_name][:, yli:yui, xli:xui] # get the 3D array within the boundaries for all time
         df = pd.DataFrame() # create a new dataframe to put the extracted series into
