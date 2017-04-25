@@ -83,3 +83,9 @@ def extract_all_variables(outer_directory):
 
     for name in names:
         extract_dir(os.path.join(outer_directory, name), name + '.csv')
+
+
+def extract_file(filename, output_filename):
+    chess_data = ChessDataset(filename)
+    chess_data.extract()
+    chess_data.save_to_csv(output_filename)
