@@ -10,18 +10,20 @@ class ChessDataset:
         self.df = None
 
 
-    def extract(self, xbounds=(308000 , 324000), ybounds=(510000, 519000)):
+    def extract(self, xbounds=(308000 , 322000), ybounds=(510000, 519000)):
         """this defines a function called extract_rainfall with the argument dataset_path which
         needs to be a string corresponding to the location of you input netCDF file"""
 
         data = nc.Dataset(self.dataset_path) # instantiate an object called data which is in the class Dataset from netCDF4
 
-        variables = ['tas', 'precip', 'pet', 'dtr']
+        variables = ['tas', 'precip', 'pet', 'dtr', 'rainfall_amount']
         variable_name = None
         for v in variables:
             if v in data.variables.keys():
                 variable_name = v
                 break
+        if variable_name == 'rainfall_amount':
+            ybounds = (ybounds[1], ybounds[0])
         if not variable_name:
             return "Can't find any of the specified variables"
 
@@ -76,11 +78,11 @@ def extract_dir(directory, output_filename):
     df.to_csv(output_filename)
 
 
-def extract_all_dirs(outer_directory):
+def extract_all_dirs(outer_directory='/Volumes/TOSHIBA EXT'):
     """Get all the netCDF files in each directory starting with CHESS_ and send them to files in the current location"""
     names = []
     for name in os.listdir(outer_directory):
-        if name.lower().startswith('chess_'):
+        if name.lower().startswith('chess_') or name.lower().startswith('ceh'):
             names.append(name)
 
     for name in names:
